@@ -7,15 +7,18 @@ import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 import com.nhnacademy.jpa.entity.household.Household;
 import com.nhnacademy.jpa.entity.household.composition.resident.CompositionResident;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @AllArgsConstructor
@@ -56,12 +59,31 @@ public class Resident {
     @Column(name = "death_place_address")
     String deathPlaceAddress;
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "houseHoldSerialNo")
-    private List<Household> households;
+    private List<Household> households = new ArrayList<>();
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "resident")
-    private List<CompositionResident> compositionResidents;
+    private List<CompositionResident> compositionResidents = new ArrayList<>();
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "baseResidentSerialNo")
-    private List<FamilyRelationship> familyRelationships;
+    private List<FamilyRelationship> familyRelationships = new ArrayList<>();
+
+    public void addHousehold(Household household){
+        household.setResident(this);
+        households.add(household);
+    }
+
+    public void addCompositionResident(CompositionResident compositionResident){
+        compositionResident.setResident(this);
+        compositionResidents.add(compositionResident);
+    }
+
+    public void addFamilyRelationship(FamilyRelationship familyRelationship){
+        familyRelationship.setBaseResidentSerialNo(this);
+        familyRelationships.add(familyRelationship);
+
+    }
 }

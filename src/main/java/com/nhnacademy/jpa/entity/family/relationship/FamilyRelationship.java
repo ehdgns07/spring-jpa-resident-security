@@ -12,11 +12,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "family_relationship")
+@NoArgsConstructor
 @IdClass(FamilyRelationship.FrPk.class)
 public class FamilyRelationship {
 
@@ -32,7 +37,10 @@ public class FamilyRelationship {
     @Column(name = "family_relationship_code")
     private String familyRelationshipCode;
 
-    @Data
+
+    @EqualsAndHashCode
+    @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public class FrPk implements Serializable {

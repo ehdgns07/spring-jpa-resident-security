@@ -1,0 +1,36 @@
+POST /residents
+Content-Type:application/json
+Host: localhost:8080
+
+{
+  "residentSerialNo": 0,
+  "name": "이동훈",
+  "registrationNo": "880926-1234567",
+  "gender": "남",
+  "birthDate": "19880926111100",
+  "birthPlace": "병원",
+  "baseAddress": "경남 창원시 명서동"
+}
+
+###
+
+PUT /residents/0
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "name": "고윤하",
+  "gender": "여자",
+  "birthDate": "19880429111100",
+  "baseAddress": "서울특별시 도봉구 창동"
+}
+
+###
+POST /residents/2/relationship
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "familyResidentSerialNo": 0,
+  "familyRelationshipCode": "자녀"
+}

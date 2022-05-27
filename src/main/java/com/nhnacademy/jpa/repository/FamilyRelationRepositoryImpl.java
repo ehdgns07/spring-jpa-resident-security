@@ -11,7 +11,6 @@ public class FamilyRelationRepositoryImpl extends QuerydslRepositorySupport impl
 
     @Override
     public FamilyRelationship insertFamilyRelationship() {
-
         return null;
     }
 }

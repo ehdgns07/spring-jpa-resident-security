@@ -33,8 +33,10 @@ private final FamilyRelationShipService familyRelationshipService;
     public Integer modifyResident(@RequestBody ResidentRegisterDto residentRegisterDto, @PathVariable Integer serialNumber)
     { return residentService.editResident(residentRegisterDto, serialNumber); }
 
-    @PostMapping("/{serialNumber/relationship}")
-    public FamilyRelationship registerFamilyRelationship(@RequestBody FamilyRelationship familyRelationship, @PathVariable Integer serialNumber){
+    @PostMapping("/{serialNumber}/relationship")
+    public FamilyRelationship registerFamilyRelationship(@RequestBody FamilyRelationship familyRelationship,
+                                                         @PathVariable Integer serialNumber){
+
         return familyRelationshipService.registerRelationShip(familyRelationship, serialNumber);
     }
 }
