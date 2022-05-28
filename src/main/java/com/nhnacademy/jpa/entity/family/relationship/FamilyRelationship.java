@@ -4,6 +4,7 @@ import com.nhnacademy.jpa.entity.resident.Resident;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.loader.plan.spi.Fetch;
+import org.hibernate.mapping.FetchProfile;
 
 @Getter
 @Setter
@@ -25,12 +28,13 @@ import lombok.Setter;
 @IdClass(FamilyRelationship.FrPk.class)
 public class FamilyRelationship {
 
+    //resident를 직접 매핑해야 하나?
     @Id
     @Column(name = "family_resident_serial_number")
     private Integer familyResidentSerialNo;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "base_resident_serial_number")
     private Resident baseResidentSerialNo;
 
@@ -38,12 +42,10 @@ public class FamilyRelationship {
     private String familyRelationshipCode;
 
 
-    @EqualsAndHashCode
-    @Getter
-    @Setter
+    @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public class FrPk implements Serializable {
+    public static class FrPk implements Serializable {
 
         private Integer familyResidentSerialNo;
 

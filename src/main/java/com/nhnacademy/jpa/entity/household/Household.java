@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +22,8 @@ import lombok.Setter;
 public class Household {
 
     @Id
-    @Column(name = "household_serial_no")
-    Integer houseHoldSerialNo;
+    @Column(name = "household_serial_number")
+    Integer householdSerialNo;
 
     @ManyToOne
     @JoinColumn(name = "household_resident_serial_number")

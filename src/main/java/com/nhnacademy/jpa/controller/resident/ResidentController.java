@@ -1,13 +1,15 @@
-package com.nhnacademy.jpa.controller;
+package com.nhnacademy.jpa.controller.resident;
 
 
+import com.nhnacademy.jpa.domain.FamilyRelationShipDto;
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
 import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 import com.nhnacademy.jpa.entity.resident.Resident;
-import com.nhnacademy.jpa.service.FamilyRelationShipService;
-import com.nhnacademy.jpa.service.ResidentService;
+import com.nhnacademy.jpa.service.familyrelation.FamilyRelationShipService;
+import com.nhnacademy.jpa.service.resident.ResidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,5 +40,20 @@ private final FamilyRelationShipService familyRelationshipService;
                                                          @PathVariable Integer serialNumber){
 
         return familyRelationshipService.registerRelationShip(familyRelationship, serialNumber);
+    }
+
+    @PutMapping("/{serialNumber}/relationship/{familySerialNumber}")
+    public Integer modifyFamilyRelationship(@RequestBody FamilyRelationShipDto familyRelationShipDto,
+                                            @PathVariable Integer serialNumber,
+                                            @PathVariable Integer familySerialNumber){
+        return familyRelationshipService.editFamilyRelationship(familyRelationShipDto,
+                                                                serialNumber, familySerialNumber);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/{serialNumber}/relationship/{familySerialNumber}")
+    public void eraseFamilyRelationship(@PathVariable Integer serialNumber, @PathVariable Integer familySerialNumber){
+        System.out.println();
+        familyRelationshipService.removeFamilyRelationship(serialNumber,familySerialNumber);
     }
 }

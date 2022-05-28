@@ -2,6 +2,7 @@ package com.nhnacademy.jpa.entity.birth.death.report.resident;
 
 import com.nhnacademy.jpa.entity.resident.Resident;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -18,11 +19,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "birth_death_report_resident")
 public class BirthDeathReportResident {
+
+    public BirthDeathReportResident(
+        Pk pk, Resident resident, LocalDate reportDate, String birthReportQualificationsCode,
+        String emailAddress, String phoneNumber) {
+        this.pk = pk;
+        this.resident = resident;
+        this.reportDate = reportDate;
+        this.birthReportQualificationsCode = birthReportQualificationsCode;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+    }
 
     @EmbeddedId
     private Pk pk;
@@ -30,10 +43,10 @@ public class BirthDeathReportResident {
     @MapsId("residentSerialNo")
     @ManyToOne
     @JoinColumn(name = "resident_serial_number")
-    private Resident resident1;
+    private Resident resident;
 
     @Column(name = "birth_death_report_date")
-    private LocalDateTime reportDate;
+    private LocalDate reportDate;
 
     @Column(name = "birth_report_qualifications_code")
     private String birthReportQualificationsCode;
@@ -53,7 +66,7 @@ public class BirthDeathReportResident {
     @NoArgsConstructor
     @AllArgsConstructor
     @Embeddable
-    public class Pk implements Serializable {
+    public static class Pk implements Serializable {
 
         private Integer residentSerialNo;
 

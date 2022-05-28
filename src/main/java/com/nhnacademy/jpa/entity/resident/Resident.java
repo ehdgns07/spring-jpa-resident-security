@@ -8,11 +8,15 @@ import com.nhnacademy.jpa.entity.household.Household;
 import com.nhnacademy.jpa.entity.household.composition.resident.CompositionResident;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -59,31 +63,32 @@ public class Resident {
     @Column(name = "death_place_address")
     String deathPlaceAddress;
 
-    @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "houseHoldSerialNo")
-    private List<Household> households = new ArrayList<>();
-
-    @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "resident")
-    private List<CompositionResident> compositionResidents = new ArrayList<>();
-
-    @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "baseResidentSerialNo")
-    private List<FamilyRelationship> familyRelationships = new ArrayList<>();
-
-    public void addHousehold(Household household){
-        household.setResident(this);
-        households.add(household);
-    }
-
-    public void addCompositionResident(CompositionResident compositionResident){
-        compositionResident.setResident(this);
-        compositionResidents.add(compositionResident);
-    }
-
-    public void addFamilyRelationship(FamilyRelationship familyRelationship){
-        familyRelationship.setBaseResidentSerialNo(this);
-        familyRelationships.add(familyRelationship);
-
-    }
+    // @Setter(AccessLevel.NONE)
+    // @OrderColumn(name = "household_serial_number")
+    // @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER)
+    // private List<Household> households = new ArrayList<>();
+    //
+    // @Setter(AccessLevel.NONE)
+    // @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER)
+    // private List<CompositionResident> compositionResidents = new ArrayList<>();
+    //
+    // @Setter(AccessLevel.NONE)
+    // @OneToMany(mappedBy = "baseResidentSerialNo", fetch = FetchType.EAGER)
+    // private Set<FamilyRelationship> familyRelationships = new HashSet<>();
+    //
+    // public void addHousehold(Household household){
+    //     household.setResident(this);
+    //     households.add(household);
+    // }
+    //
+    // public void addCompositionResident(CompositionResident compositionResident){
+    //     compositionResident.setResident(this);
+    //     compositionResidents.add(compositionResident);
+    // }
+    //
+    // public void addFamilyRelationship(FamilyRelationship familyRelationship){
+    //     familyRelationship.setBaseResidentSerialNo(this);
+    //     familyRelationships.add(familyRelationship);
+    //
+    // }
 }

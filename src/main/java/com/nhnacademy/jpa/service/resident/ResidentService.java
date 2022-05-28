@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.service;
+package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
 import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;

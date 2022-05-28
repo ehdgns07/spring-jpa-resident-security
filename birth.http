@@ -1,0 +1,29 @@
+POST /birth/4
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "birthDeathCode": "출생",
+  "residentSerialNo": "0",
+  "reportDate": "19880924",
+  "birthReportQualificationsCode": "부",
+  "emailAddress": "ehdgns07@gmail.com",
+  "phoneNumber": "010-1234-1234"
+}
+
+###
+
+PUT /birth/4/0
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "residentSerialNo": 0,
+  "reportResidentSerialNo": 2,
+  "emailAddress": "ehdgns07@naver.com",
+  "phoneNumber": "010-3241-2131"
+}
+
+###
+DELETE /birth/4/0
+Host: localhost:8080

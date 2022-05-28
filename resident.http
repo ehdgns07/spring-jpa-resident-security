@@ -34,3 +34,21 @@ Host: localhost:8080
   "familyResidentSerialNo": 0,
   "familyRelationshipCode": "자녀"
 }
+
+###
+
+PUT /residents/2/relationship/0
+Content-Type: application/json
+Host: localhost:8080
+
+{
+    "familyRelationshipCode": "모"
+}
+
+###
+
+DELETE /residents/2/relationship/0
+Host: localhost:8080
+
+###
+

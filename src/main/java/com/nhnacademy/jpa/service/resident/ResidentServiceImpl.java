@@ -1,9 +1,8 @@
-package com.nhnacademy.jpa.service;
+package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
-import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 import com.nhnacademy.jpa.entity.resident.Resident;
-import com.nhnacademy.jpa.repository.ResidentRepository;
+import com.nhnacademy.jpa.repository.resident.ResidentRepository;
 import org.springframework.stereotype.Service;
 
 
