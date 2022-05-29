@@ -4,6 +4,7 @@ import com.nhnacademy.jpa.entity.resident.Resident;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -12,19 +13,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "birth_death_report_resident")
-public class BirthDeathReportResident {
+@Builder
+public class BirthDeathReportResident implements Persistable<BirthDeathReportResident.Pk> {
 
     public BirthDeathReportResident(
         Pk pk, Resident resident, LocalDate reportDate, String birthReportQualificationsCode,
@@ -60,6 +65,16 @@ public class BirthDeathReportResident {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Transient
+    boolean shouldBeNew = false;
+
+    @Override
+    public Pk getId() {
+        return pk;
+    }
+
+    @Override
+    public boolean isNew() { return shouldBeNew || Objects.isNull(pk); }
 
 
     @Data
@@ -68,6 +83,7 @@ public class BirthDeathReportResident {
     @Embeddable
     public static class Pk implements Serializable {
 
+        @Column(name = "resident_serial_number")
         private Integer residentSerialNo;
 
         @Column(name ="birth_death_type_code")

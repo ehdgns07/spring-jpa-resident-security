@@ -1,0 +1,11 @@
+POST /death/2
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "residentSerialNo": 0,
+  "birthDeathCode": "사망",
+  "reportDate": "22001114",
+  "deathReportQualificationsCode": "동거친족",
+  "phoneNumber": "010111111111"
+}

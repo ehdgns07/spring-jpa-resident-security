@@ -4,7 +4,7 @@ import com.nhnacademy.jpa.domain.BirthReportDto;
 import com.nhnacademy.jpa.domain.BirthReportModifyDto;
 import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportResident;
 import com.nhnacademy.jpa.entity.resident.Resident;
-import com.nhnacademy.jpa.repository.birthDeath.BirthReportRepository;
+import com.nhnacademy.jpa.repository.birthDeath.BirthDeathReportRepository;
 import com.nhnacademy.jpa.repository.resident.ResidentRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class BirthReportServiceImpl implements BirthReportService{
 
     private final ResidentRepository residentRepository;
-    private final BirthReportRepository birthReportRepository;
+    private final BirthDeathReportRepository birthDeathReportRepository;
 
     @Override
     public BirthDeathReportResident createBirthReport(BirthReportDto birthReportDto, Integer serialNumber) {
@@ -32,18 +32,23 @@ public class BirthReportServiceImpl implements BirthReportService{
             new BirthDeathReportResident(pk, birthResident, birthReportDto.getReportDate(),
                                         birthReportDto.getBirthReportQualificationsCode(), birthReportDto.getEmailAddress(), birthReportDto.getPhoneNumber());
 
-        return birthReportRepository.save(birthDeathReportResident);
+        return birthDeathReportRepository.save(birthDeathReportResident);
     }
 
     @Override
     public Integer modifyBirthReport(BirthReportModifyDto birthReportModifyDto,
                                      Integer serialNumber, Integer targetSerialNumber) {
 
-        return birthReportRepository.updateBirthReport(birthReportModifyDto.getEmailAddress(), birthReportModifyDto.getPhoneNumber(), serialNumber, targetSerialNumber);
+        return birthDeathReportRepository.updateBirthReport(birthReportModifyDto.getEmailAddress(), birthReportModifyDto.getPhoneNumber(), serialNumber, targetSerialNumber);
     }
 
     @Override
     public void removeBirthReport(Integer serialNumber, Integer targetSerialNumber) {
-        birthReportRepository.deleteById(serialNumber, targetSerialNumber);
+        BirthDeathReportResident.Pk pk = new BirthDeathReportResident.Pk();
+        pk.setReportResidentSerialNo(serialNumber);
+        pk.setResidentSerialNo(targetSerialNumber);
+        pk.setBirthDeathCode("출생");
+
+        birthDeathReportRepository.deleteById(pk);
     }
 }
