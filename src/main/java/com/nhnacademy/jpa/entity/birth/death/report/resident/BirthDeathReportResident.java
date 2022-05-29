@@ -45,9 +45,9 @@ public class BirthDeathReportResident implements Persistable<BirthDeathReportRes
     @EmbeddedId
     private Pk pk;
 
-    @MapsId("residentSerialNo")
+    @MapsId("reportResidentSerialNo")
     @ManyToOne
-    @JoinColumn(name = "resident_serial_number")
+    @JoinColumn(name = "report_resident_serial_number")
     private Resident resident;
 
     @Column(name = "birth_death_report_date")
@@ -89,7 +89,6 @@ public class BirthDeathReportResident implements Persistable<BirthDeathReportRes
         @Column(name ="birth_death_type_code")
         private String birthDeathCode;
 
-        @Column(name = "report_resident_serial_number")
         private Integer reportResidentSerialNo;
 
     }
