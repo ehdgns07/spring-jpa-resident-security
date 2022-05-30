@@ -6,6 +6,7 @@ import com.nhnacademy.jpa.service.death.DeathReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,5 +21,10 @@ public class DeathReportController {
     @PostMapping("/{serialNumber}")
     public BirthDeathReportResident registerDeathReport(@RequestBody DeathReportDto deathReportDto, @PathVariable Integer serialNumber){
         return deathReportService.createDeathReport(deathReportDto, serialNumber);
+    }
+
+    @PutMapping("/{serialNumber}/{targetSerialNumber}")
+    public Integer editDeathReport(@RequestBody DeathReportDto deathReportDto, @PathVariable Integer serialNumber, @PathVariable Integer targetSerialNumber){
+        return deathReportService.modifyDeathReport(deathReportDto, serialNumber, targetSerialNumber);
     }
 }

@@ -3,6 +3,7 @@ package com.nhnacademy.jpa.entity.resident;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportResident;
 import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 import com.nhnacademy.jpa.entity.household.Household;
 import com.nhnacademy.jpa.entity.household.composition.resident.CompositionResident;
@@ -23,13 +24,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "resident")
-public class Resident {
+public class Resident implements Persistable<Integer> {
 
     @Id
     @Column(name = "resident_serial_number")
@@ -62,6 +64,16 @@ public class Resident {
 
     @Column(name = "death_place_address")
     String deathPlaceAddress;
+
+    @Override
+    public Integer getId() {
+        return null;
+    }
+
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 
     // @Setter(AccessLevel.NONE)
     // @OrderColumn(name = "household_serial_number")

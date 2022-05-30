@@ -32,8 +32,8 @@ private final FamilyRelationShipService familyRelationshipService;
 
 
     @PutMapping("/{serialNumber}")
-    public Integer modifyResident(@RequestBody ResidentRegisterDto residentRegisterDto, @PathVariable Integer serialNumber)
-    { return residentService.editResident(residentRegisterDto, serialNumber); }
+    public Integer editResident(@RequestBody ResidentRegisterDto residentRegisterDto, @PathVariable Integer serialNumber)
+    { return residentService.modifyResident(residentRegisterDto, serialNumber); }
 
     @PostMapping("/{serialNumber}/relationship")
     public FamilyRelationship registerFamilyRelationship(@RequestBody FamilyRelationship familyRelationship,
@@ -43,10 +43,10 @@ private final FamilyRelationShipService familyRelationshipService;
     }
 
     @PutMapping("/{serialNumber}/relationship/{familySerialNumber}")
-    public Integer modifyFamilyRelationship(@RequestBody FamilyRelationShipDto familyRelationShipDto,
+    public Integer editFamilyRelationship(@RequestBody FamilyRelationShipDto familyRelationShipDto,
                                             @PathVariable Integer serialNumber,
                                             @PathVariable Integer familySerialNumber){
-        return familyRelationshipService.editFamilyRelationship(familyRelationShipDto,
+        return familyRelationshipService.modifyFamilyRelationship(familyRelationShipDto,
                                                                 serialNumber, familySerialNumber);
     }
 
@@ -56,4 +56,5 @@ private final FamilyRelationShipService familyRelationshipService;
         System.out.println();
         familyRelationshipService.removeFamilyRelationship(serialNumber,familySerialNumber);
     }
+
 }

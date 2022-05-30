@@ -38,4 +38,10 @@ public class DeathReportServiceImpl implements DeathReportService {
 
 		return birthDeathReportRepository.save(deathReportResident);
 	}
+
+	@Override
+	public Integer modifyDeathReport(DeathReportDto deathReportDto, Integer serialNumber,
+									 Integer targetSerialNumber) {
+		return birthDeathReportRepository.updateDeathReport(deathReportDto.getEmailAddress(), deathReportDto.getPhoneNumber(), serialNumber, targetSerialNumber, deathReportDto.getDeathReportQualificationsCode());
+	}
 }

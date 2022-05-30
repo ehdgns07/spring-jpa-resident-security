@@ -6,7 +6,7 @@ import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 public interface FamilyRelationShipService {
     FamilyRelationship registerRelationShip(FamilyRelationship familyRelationship, Integer serialNo);
 
-    Integer editFamilyRelationship(FamilyRelationShipDto familyRelationShipDto, Integer serialNumber, Integer familySerialNumber);
+    Integer modifyFamilyRelationship(FamilyRelationShipDto familyRelationShipDto, Integer serialNumber, Integer familySerialNumber);
 
     void removeFamilyRelationship(Integer serialNumber, Integer familySerialNumber);
 }

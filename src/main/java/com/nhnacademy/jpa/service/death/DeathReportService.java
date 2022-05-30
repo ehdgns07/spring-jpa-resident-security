@@ -6,4 +6,6 @@ import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportRes
 public interface DeathReportService {
 
     BirthDeathReportResident createDeathReport(DeathReportDto deathReportDto, Integer serialNumber);
+
+    Integer modifyDeathReport(DeathReportDto deathReportDto, Integer serialNumber, Integer targetSerialNumber);
 }

@@ -25,8 +25,8 @@ public class FamilyRelationshipServiceImpl implements FamilyRelationShipService{
     }
 
     @Override
-    public Integer editFamilyRelationship(FamilyRelationShipDto familyRelationShipDto,
-                                          Integer serialNumber, Integer familySerialNumber) {
+    public Integer modifyFamilyRelationship(FamilyRelationShipDto familyRelationShipDto,
+                                            Integer serialNumber, Integer familySerialNumber) {
         return familyRelationshipRepository.updateResident( familyRelationShipDto.getFamilyRelationshipCode(), familySerialNumber, serialNumber);
     }
 

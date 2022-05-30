@@ -18,7 +18,7 @@ public class ResidentServiceImpl implements ResidentService{
     public Resident createResident(Resident resident){ return residentRepository.save(resident); }
 
     @Override
-    public Integer editResident(ResidentRegisterDto residentRegisterDto, Integer serialNo){
+    public Integer modifyResident(ResidentRegisterDto residentRegisterDto, Integer serialNo){
         // residentRepository.findById(serialNo)
         //                       .ifPresent(value -> {
         //                           value.set

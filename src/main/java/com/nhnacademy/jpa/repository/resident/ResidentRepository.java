@@ -1,6 +1,5 @@
 package com.nhnacademy.jpa.repository.resident;
 
-import com.nhnacademy.jpa.domain.ResidentRegisterDto;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import java.time.LocalDateTime;
 import javax.transaction.Transactional;
