@@ -77,15 +77,15 @@ public class Resident implements Persistable<Integer> {
 
     // @Setter(AccessLevel.NONE)
     // @OrderColumn(name = "household_serial_number")
-    // @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER)
+    // @OneToMany(mappedBy = "resident")
     // private List<Household> households = new ArrayList<>();
     //
     // @Setter(AccessLevel.NONE)
-    // @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER)
+    // @OneToMany(mappedBy = "resident")
     // private List<CompositionResident> compositionResidents = new ArrayList<>();
     //
     // @Setter(AccessLevel.NONE)
-    // @OneToMany(mappedBy = "baseResidentSerialNo", fetch = FetchType.EAGER)
+    // @OneToMany(mappedBy = "baseResidentSerialNo")
     // private Set<FamilyRelationship> familyRelationships = new HashSet<>();
     //
     // public void addHousehold(Household household){

@@ -7,5 +7,6 @@ public interface ResidentService {
 
     Resident createResident(Resident resident);
     Integer modifyResident(ResidentRegisterDto residentRegisterDto, Integer serialNo);
+    Resident getResident(Integer serialNo);
 
 }

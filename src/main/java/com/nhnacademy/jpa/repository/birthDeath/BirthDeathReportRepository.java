@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface BirthDeathReportRepository extends BirthReportRepositoryCustom, JpaRepository<BirthDeathReportResident, BirthDeathReportResident.Pk> {
-
+//, nativeQuery = true
     @Transactional
     @Modifying
-    @Query(value = "update birth_death_report_resident set email_address = ?1, phone_number = ?2 where report_resident_serial_number = ?3 and resident_serial_number = ?4", nativeQuery = true)
+    @Query("update BirthDeathReportResident set emailAddress = ?1, phoneNumber = ?2 where pk.reportResidentSerialNo = ?3 and pk.residentSerialNo = ?4")
     Integer updateBirthReport(String emailAddress, String phoneNumber, Integer serialNumber, Integer targetSerialNumber);
 
     @Transactional
     @Modifying
-    @Query(value = "update birth_death_report_resident set email_address = ?1, phone_number = ?2, death_report_qualifications_code = ?5 where report_resident_serial_number = ?3 and resident_serial_number = ?4", nativeQuery = true)
+    @Query(value = "update BirthDeathReportResident set emailAddress = ?1, phoneNumber = ?2, deathReportQualificationsCode = ?5 where  pk.reportResidentSerialNo = ?3 and pk.residentSerialNo = ?4")
     Integer updateDeathReport(String emailAddress, String phoneNumber, Integer serialNumber, Integer targetSerialNumber, String deathReportQualificationsCode);
 
 }

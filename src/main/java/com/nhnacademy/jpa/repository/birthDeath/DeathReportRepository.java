@@ -1,6 +1,5 @@
 package com.nhnacademy.jpa.repository.birthDeath;
 
-import com.nhnacademy.jpa.domain.DeathReportDto;
 import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportResident;
 import org.springframework.data.jpa.repository.JpaRepository;
 

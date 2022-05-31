@@ -1,6 +1,6 @@
 package com.nhnacademy.jpa.service.death;
 
-import com.nhnacademy.jpa.domain.DeathReportDto;
+import com.nhnacademy.jpa.domain.death.DeathReportDto;
 import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportResident;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import com.nhnacademy.jpa.repository.birthDeath.BirthDeathReportRepository;
@@ -42,6 +42,18 @@ public class DeathReportServiceImpl implements DeathReportService {
 	@Override
 	public Integer modifyDeathReport(DeathReportDto deathReportDto, Integer serialNumber,
 									 Integer targetSerialNumber) {
-		return birthDeathReportRepository.updateDeathReport(deathReportDto.getEmailAddress(), deathReportDto.getPhoneNumber(), serialNumber, targetSerialNumber, deathReportDto.getDeathReportQualificationsCode());
+		return birthDeathReportRepository.updateDeathReport(deathReportDto.getEmailAddress(),
+															deathReportDto.getPhoneNumber(), serialNumber,
+															targetSerialNumber, deathReportDto.getDeathReportQualificationsCode());
+	}
+
+	@Override
+	public void removeDeathReport(Integer serialNumber, Integer targetSerialNumber) {
+		BirthDeathReportResident.Pk pk = new BirthDeathReportResident.Pk();
+		pk.setBirthDeathCode("사망");
+		pk.setReportResidentSerialNo(serialNumber);
+		pk.setResidentSerialNo(targetSerialNumber);
+
+		birthDeathReportRepository.deleteById(pk);
 	}
 }

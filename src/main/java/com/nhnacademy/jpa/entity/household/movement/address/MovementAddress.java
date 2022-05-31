@@ -5,22 +5,28 @@ import com.nhnacademy.jpa.entity.household.Household;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "household_movment_address")
+@Table(name = "household_movement_address")
 @IdClass(MovementAddress.MovementPk.class)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MovementAddress {
 
     @Id
@@ -28,9 +34,9 @@ public class MovementAddress {
     LocalDate movementReportDate;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "household_serial_no")
-    Household householdSerialNo;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "household_serial_number")
+    Household household;
 
     @Column(name = "house_movement_address")
     String houseMovementAddress;
@@ -42,13 +48,11 @@ public class MovementAddress {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public class MovementPk implements Serializable {
+    public static class MovementPk implements Serializable {
 
-        @Column(name = "house_movement_report_date")
         private LocalDate movementReportDate;
 
-        @Column(name = "household_serial_number")
-        private Integer householdSerialNo;
+        private Integer household;
     }
 
 }

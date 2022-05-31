@@ -1,0 +1,16 @@
+POST /household
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "householdSerialNo": 2,
+  "householdResidentSerialNo": 0,
+  "compositionDate": "11111111",
+  "compositionReasonCode": "세대분리",
+  "currentAddress": "경남 창원시 상남동"
+}
+
+###
+
+DELETE /household/0
+Host: localhost:8080

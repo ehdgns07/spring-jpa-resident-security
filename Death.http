@@ -21,3 +21,7 @@ Host: localhost:8080
   "phoneNumber": "010-1111-1111",
   "deathReportQualificationsCode": "동거친족"
 }
+
+###
+DELETE /death/2/0
+Host: localhost:8080

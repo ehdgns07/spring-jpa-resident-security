@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.domain;
+package com.nhnacademy.jpa.domain.death;
 
 import lombok.Data;
 
