@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+        <div th:text="test"></div>
+        <table>
+            <tr th:each="resident : ${residents}">
+                <td th:text="${resident.getName()}"></td>
+                <td><a th:href="@{/relationship/{baseResidentSerialNo} (baseResidentSerialNo = ${resident.getResidentSerialNo()})}" th:text="가족관계증명서"></a></td>
+            </tr>
+        </table>
+    <div>
+        <!-- <a th:if="${page.getPageNumber() >= 0 }" th:href="@{/resident/index(page=0, size=${page.pageSize})}" th:text="첫페이지"></a> -->
+        <a th:if="${page.getPageNumber() >= 1 }" th:href="@{/resident/index(page= ${page.pageNumber- 1}, size=${page.pageSize})}"> <<</a>
+            <span th:text="${page.pageNumber + 1 }"></span>
+            <a th:if="${page.getPageNumber() < totalPage - 1} " th:href="@{/resident/index(page= ${page.getPageNumber() + 1}, size=${page.getPageSize()})}">>> </a>
+        <!-- <a th:href="@{/resident/index(page=${totalPage - 1}, size=${page.pageSize})}" th:text="끝페이지"></a> -->
+    </div>
+    </body>
+</html>

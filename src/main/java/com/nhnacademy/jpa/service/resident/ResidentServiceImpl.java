@@ -2,19 +2,23 @@ package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
 import com.nhnacademy.jpa.entity.resident.Resident;
+import com.nhnacademy.jpa.repository.resident.PagingResidentRepository;
 import com.nhnacademy.jpa.repository.resident.ResidentRepository;
+import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class ResidentServiceImpl implements ResidentService{
 
-    ResidentRepository residentRepository;
+    private final ResidentRepository residentRepository;
+    private final PagingResidentRepository pagingResidentRepository;
 
-    public ResidentServiceImpl(ResidentRepository residentRepository) {
-        this.residentRepository = residentRepository;
-    }
     @Override
     public Resident createResident(Resident resident){ return residentRepository.save(resident); }
 
@@ -37,6 +41,12 @@ public class ResidentServiceImpl implements ResidentService{
             return residentOptional.get();
         }
         return null;
+    }
+
+    @Override
+    public Page<Resident> PagedResident(Pageable pageable) {
+
+        return pagingResidentRepository.findAll(pageable);
     }
 
 }

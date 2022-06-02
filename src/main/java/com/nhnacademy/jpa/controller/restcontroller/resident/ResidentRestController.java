@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.restcontroller.resident;
+package com.nhnacademy.jpa.controller.restcontroller.resident;
 
 
 import com.nhnacademy.jpa.domain.FamilyRelationShipDto;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/residents")
-public class ResidentController {
+public class ResidentRestController {
 
 private final ResidentService residentService;
 private final FamilyRelationShipService familyRelationshipService;
@@ -50,7 +50,6 @@ private final FamilyRelationShipService familyRelationshipService;
                                                                 serialNumber, familySerialNumber);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/{serialNumber}/relationship/{familySerialNumber}")
     public void eraseFamilyRelationship(@PathVariable Integer serialNumber, @PathVariable Integer familySerialNumber){
         System.out.println();

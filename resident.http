@@ -1,4 +1,4 @@
-POST /residents
+POST /residents/
 Content-Type:application/json
 Host: localhost:8080
 

@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.restcontroller.household;
+package com.nhnacademy.jpa.controller.restcontroller.household;
 
 
 import com.nhnacademy.jpa.domain.household.HouseholdDto;
