@@ -1,6 +1,11 @@
 package com.nhnacademy.jpa.entity.household.movement.address;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.nhnacademy.jpa.entity.household.Household;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,12 +35,15 @@ import lombok.Setter;
 public class MovementAddress {
 
     @Id
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
     @Column(name = "house_movement_report_date")
     LocalDate movementReportDate;
 
     @Id
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "household_serial_number")
+    @JsonBackReference
     Household household;
 
     @Column(name = "house_movement_address")

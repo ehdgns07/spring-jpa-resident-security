@@ -34,13 +34,9 @@ public class HouseholdServiceImpl implements HouseholdService{
             buildCompositionResident(householdDto, resident.getResidentSerialNo(), resident);
         household.addCompositionResidents(compositionResident);
 
-        compositionResidentRepository.save(compositionResident);
-
         MovementAddress movementAddress =
             buildMovementAddress(householdDto);
         household.addMovementAddress(movementAddress);
-
-        movementAddressRepository.save(movementAddress);
 
         household.setResident(resident);
 

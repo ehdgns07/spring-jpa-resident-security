@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.controller.birthdeathreport;
+package com.nhnacademy.jpa.restcontroller.birthdeathreport;
 
 import com.nhnacademy.jpa.domain.BirthReportDto;
 import com.nhnacademy.jpa.domain.BirthReportModifyDto;

@@ -1,6 +1,6 @@
 package com.nhnacademy.jpa.config;
 
-import com.nhnacademy.jpa.controller.ControllerBase;
+import com.nhnacademy.jpa.restcontroller.ControllerBase;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;

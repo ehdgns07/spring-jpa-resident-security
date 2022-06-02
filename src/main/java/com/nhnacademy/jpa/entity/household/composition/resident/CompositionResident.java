@@ -1,5 +1,6 @@
 package com.nhnacademy.jpa.entity.household.composition.resident;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nhnacademy.jpa.entity.household.Household;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import java.io.Serializable;
@@ -41,6 +42,7 @@ public class CompositionResident {
     @MapsId("householdSerialNo")
     @ManyToOne
     @JoinColumn(name = "household_serial_number")
+    @JsonBackReference
     private Household household;
 
     @Column(name = "report_date")

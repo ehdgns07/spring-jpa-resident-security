@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.controller.familyrelationship;
+package com.nhnacademy.jpa.restcontroller.familyrelationship;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;

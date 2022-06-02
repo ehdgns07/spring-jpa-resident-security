@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa.controller.resident;
+package com.nhnacademy.jpa.restcontroller.resident;
 
 
 import com.nhnacademy.jpa.domain.FamilyRelationShipDto;

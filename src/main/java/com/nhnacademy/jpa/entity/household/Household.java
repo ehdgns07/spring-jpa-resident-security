@@ -1,11 +1,13 @@
 package com.nhnacademy.jpa.entity.household;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nhnacademy.jpa.entity.household.composition.resident.CompositionResident;
 import com.nhnacademy.jpa.entity.household.movement.address.MovementAddress;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -53,10 +55,12 @@ public class Household {
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "household", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     Set<MovementAddress> movementAddresses;
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "household", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     List<CompositionResident> compositionResidents;
 
     public void addCompositionResidents(CompositionResident compositionResident){
