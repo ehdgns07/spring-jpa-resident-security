@@ -9,9 +9,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public interface ResidentRepository extends JpaRepository<Resident, Integer>{
+public interface ResidentRepository extends JpaRepository<Resident, Integer>, ResidentRepositoryCustom{
 
+    UserDetails findByUsername(String username);
 
     @Transactional
     @Modifying

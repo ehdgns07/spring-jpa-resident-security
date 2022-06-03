@@ -2,7 +2,8 @@ package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
 import com.nhnacademy.jpa.entity.resident.Resident;
-import java.util.List;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,4 +15,8 @@ public interface ResidentService {
 //view
 
     Page<Resident> PagedResident(Pageable pageable);
+
+    String tryToLoginAtGithub() throws URISyntaxException, NoSuchAlgorithmException;
+
+    String getAccessToken(String code, String state) throws URISyntaxException;
 }

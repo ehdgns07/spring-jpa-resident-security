@@ -1,10 +1,12 @@
 package com.nhnacademy.jpa.service.familyrelation;
 
 import com.nhnacademy.jpa.domain.FamilyRelationShipDto;
+import com.nhnacademy.jpa.domain.familyrelationship.FamilyRelationshipCertificationDto;
 import com.nhnacademy.jpa.entity.family.relationship.FamilyRelationship;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import com.nhnacademy.jpa.repository.familyrelationship.FamilyRelationshipRepository;
 import com.nhnacademy.jpa.repository.resident.ResidentRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,11 @@ public class FamilyRelationshipServiceImpl implements FamilyRelationShipService{
         frPk.setFamilyResidentSerialNo(familySerialNumber);
 
         familyRelationshipRepository.deleteById(frPk);
+    }
+
+    @Override
+    public List<FamilyRelationshipCertificationDto> doCertificate(
+        Integer baseResidentSerialNo) {
+        return familyRelationshipRepository.findCertification();
     }
 }

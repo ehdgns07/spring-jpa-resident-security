@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface FamilyRelationshipRepository extends
-    JpaRepository<FamilyRelationship, FamilyRelationship.FrPk> {
+    JpaRepository<FamilyRelationship, FamilyRelationship.FrPk>, FamilyRelationshipCustom {
 
     @Transactional
     @Modifying

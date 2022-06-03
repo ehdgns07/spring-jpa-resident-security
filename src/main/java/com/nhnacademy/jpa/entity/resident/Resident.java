@@ -31,7 +31,7 @@ import org.springframework.data.domain.Persistable;
 @NoArgsConstructor
 @Entity
 @Table(name = "resident")
-public class Resident implements Persistable<Integer> {
+public class Resident {
 
     @Id
     @Column(name = "resident_serial_number")
@@ -65,15 +65,14 @@ public class Resident implements Persistable<Integer> {
     @Column(name = "death_place_address")
     String deathPlaceAddress;
 
-    @Override
-    public Integer getId() {
-        return null;
-    }
+    String username;
 
-    @Override
-    public boolean isNew() {
-        return false;
-    }
+    String password;
+
+    String email;
+
+    @Column(name ="authority")
+    String authority;
 
     // @Setter(AccessLevel.NONE)
     // @OrderColumn(name = "household_serial_number")

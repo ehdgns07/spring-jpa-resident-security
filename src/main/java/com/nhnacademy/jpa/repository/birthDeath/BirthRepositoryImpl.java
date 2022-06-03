@@ -1,12 +1,7 @@
 package com.nhnacademy.jpa.repository.birthDeath;
 
-import com.nhnacademy.jpa.domain.BirthReportDto;
 import com.nhnacademy.jpa.entity.birth.death.report.resident.BirthDeathReportResident;
-import com.nhnacademy.jpa.entity.birth.death.report.resident.QBirthDeathReportResident;
-import com.nhnacademy.jpa.entity.resident.QResident;
-import com.querydsl.jpa.impl.JPADeleteClause;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 

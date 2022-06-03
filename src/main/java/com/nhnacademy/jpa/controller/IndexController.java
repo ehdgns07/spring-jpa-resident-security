@@ -8,6 +8,6 @@ public class IndexController {
 
     @RequestMapping("/")
     String viewIndex(){
-        return "redirect:/resident/index?page=0&size=5";
+        return "redirect:/login";
     }
 }

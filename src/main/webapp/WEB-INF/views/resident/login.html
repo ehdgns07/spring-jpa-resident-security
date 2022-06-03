@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+</head>
+<body>
+    <form method="post" th:action="@{/login}">
+        ID: <input type="text" name="id" /><br />
+        Password: <input type="password" name="pwd" /><br />
+        <input type="submit" />
+    </form>
+    <a th:href="@{/login/github}">깃헙으로 로그인 하기</a>
+</body>
+</html>

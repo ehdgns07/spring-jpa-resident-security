@@ -9,7 +9,11 @@ Host: localhost:8080
   "gender": "남",
   "birthDate": "19880926111100",
   "birthPlace": "병원",
-  "baseAddress": "경남 창원시 명서동"
+  "baseAddress": "경남 창원시 명서동",
+  "username": "liverbird",
+  "password": "1234",
+  "email": "ehdgns07@gmail.com",
+  "authority": "ROLE_ADMIN"
 }
 
 ###

@@ -13,6 +13,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -72,7 +73,11 @@ public class WebConfig implements WebMvcConfigurer , ApplicationContextAware, Me
         return templateResolver;
     }
 
-    // @Bean
+    // @Override
+    // public void addInterceptors(InterceptorRegistry registry) {
+    //     WebMvcConfigurer.super.addInterceptors(registry);
+    // }
+// @Bean
     // RequestMappingHandlerAdapter requestMappingHandlerAdapter(){
     //     RequestMappingHandlerAdapter requestMappingHandlerAdapter = new RequestMappingHandlerAdapter();
     //     requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
