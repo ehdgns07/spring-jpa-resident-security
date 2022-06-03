@@ -1,0 +1,26 @@
+POST /movement
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "movementReportDate": "20220612",
+  "isLastAddress": "y",
+  "household": 2,
+  "houseMovementAddress": "부산광역시 남구 대연동"
+}
+
+###
+
+PUT /movement/
+Content-Type: application/json
+Host: localhost:8080
+
+{
+  "movementReportDate": "20220612",
+  "household": 2,
+  "houseMovementAddress": "경남 김해시 율하동"
+}
+
+###
+DELETE /movement/2/2022-06-12
+Host: localhost:8080
