@@ -34,8 +34,9 @@ public class residentLoginController {
         response.sendRedirect(residentService.tryToLoginAtGithub());
     }
 
-    @GetMapping("login/oauth2/code/github")
-    void getToken(@RequestParam String code, @RequestParam String state) throws URISyntaxException {
+    @GetMapping("/oauth2/code/github")
+    void getToken(@RequestParam String code, @RequestParam String state)
+        throws URISyntaxException, IOException {
         residentService.getAccessToken(code, state);
     }
 /*

@@ -1,6 +1,5 @@
 package com.nhnacademy.jpa.config;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.nhnacademy.jpa.Base;
 import com.p6spy.engine.spy.P6DataSource;
 import javax.sql.DataSource;
@@ -9,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan(basePackageClasses = Base.class,
@@ -29,5 +29,10 @@ public class RootConfig {
     @Bean
     public DataSource logDataSource() {
         return new P6DataSource(dataSource());
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate();
     }
 }
