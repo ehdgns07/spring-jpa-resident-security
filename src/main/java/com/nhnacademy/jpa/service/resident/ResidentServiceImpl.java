@@ -1,6 +1,8 @@
 package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
+import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.TokenInformation;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import com.nhnacademy.jpa.repository.resident.PagingResidentRepository;
 import com.nhnacademy.jpa.repository.resident.ResidentRepository;
@@ -10,11 +12,25 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +47,7 @@ public class ResidentServiceImpl implements ResidentService {
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailsService;
     private final RestTemplate restTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Override
     public Resident createResident(Resident resident) {
@@ -86,51 +103,81 @@ public class ResidentServiceImpl implements ResidentService {
                                             .queryParam("client_id", "e3552959b3a52b993c48")
                                             .queryParam("redirect_url",
                                                 "localhost:8080/residents/index?page=0&size=5")
-                                            .queryParam("scope", "read:user")
+                                            .queryParam("scope", "user:email")
                                             .queryParam("state", sb.toString()).build();
-
-        // uri = new URIBuilder(uri).addParameter("client_id", "e3552959b3a52b993c48")
-        //     .addParameter("redirect_url","localhost:8080/residents/index?page=0&size=5")
-        //     .addParameter("scope", "read:user")
-        //     .addParameter("state", sb.toString())
-        //     .build();
-
-        // authorizationGrant authorizationGrant = restTemplate.getForObject(uriComponents.toUri(), authorizationGrant.class);
-        // log.debug("{}", authorizationGrant.toString());
 
         return uriComponents.toString();
     }
 
     @Override
-    public String getAccessToken(String code, String state) throws URISyntaxException, IOException {
+    public ResidentDetailsVo getOAuthEmail(String code, String state) throws URISyntaxException, IOException {
+
         UriComponents uri = UriComponentsBuilder.newInstance()
                                                 .scheme("https")
                                                 .host("github.com")
-                                                .path("https://github.com/login/oauth/access_token")
-                                                .queryParam("client_id",
-                                                    "client_id\",\"e3552959b3a52b993c48")
+                                                .path("/login/oauth/access_token")
+                                                .queryParam("client_id","e3552959b3a52b993c48")
                                                 .queryParam("client_secret",
                                                     "760619bd131104fd1155380037600ed5b3671a40")
                                                 .queryParam("code", code)
                                                 .queryParam("redirect_url",
                                                     "localhost:8080/residents/index?page=0&size=5")
-            .
-                                                .build();
+                                                    .build();
 
-        restTemplate.getForObject(uri.toUri(), )
-        // URI uri = new URI("https://github.com/login/oauth/access_token");
-        //
-        // uri = new URIBuilder(uri)
-        //     .addParameter("client_id","e3552959b3a52b993c48")
-        //     .addParameter("client_secret", "760619bd131104fd1155380037600ed5b3671a40")
-        //     .addParameter("code", code)
-        //     .addParameter("redirect_url", "localhost:8080/residents/index?page=0&size=5").build();
-        //
-        // HttpClient httpClient = HttpClientBuilder.create().build();
-        // HttpResponse response = httpClient.execute(new HttpPost(uri));
+        TokenInformation tokeninformation = restTemplate.getForObject(uri.toUri(), TokenInformation.class);
 
+        ResidentDetailsVo residentDetailsVo = getOAuthEmail(tokeninformation);
 
-        return uri.toString();
+        return residentDetailsVo;
+    }
+
+    @Override
+    public boolean checkEmail(ResidentDetailsVo residentDetailsVo, HttpServletRequest request,
+                              HttpServletResponse response,
+                              Authentication authentication) throws ServletException, IOException {
+        List<String> residentEmails = residentRepository.findEmails();
+
+        //github에서 user 정보를 가져오는 것은 성공 했으나 email 부분을 null을 받아와서 임의로 지정.
+        residentDetailsVo.setEmail("ehdgns07@gmail.com");
+
+        for (String residentEmail : residentEmails) {
+            // if(Objects.equals(residentDetailsVo.getEmail(), residentEmail)){
+            //
+            //     List<GrantedAuthority> authorities = new ArrayList<>(residentDetailsVo.getAuthorities());
+            //
+            //     HttpSession session = request.getSession(false);
+            //
+            //     redisTemplate.opsForHash().put(session.getId(), "username", residentDetailsVo.getUsername());
+            //     redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
+            //
+            //     session.setAttribute("username", residentDetailsVo.getUsername());
+            //     session.setAttribute("authority", authorities.get(0).getAuthority());
+            //
+            //     log.debug("loginSuccess---------------------------------");
+            //     response.sendRedirect("/resident/index");
+            // }
+        }
+
+        return false;
+    }
+
+    private ResidentDetailsVo getOAuthEmail(TokenInformation tokeninformation) {
+        UriComponents uri;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "token "+ tokeninformation.getAccess_token());
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        uri = UriComponentsBuilder.newInstance()
+            .scheme("https")
+            .host("api.github.com")
+            .path("user")
+            .queryParam("username","ehdgns07")
+            .build();
+
+        ResponseEntity<ResidentDetailsVo>
+            userDetailsVo = restTemplate.exchange(uri.toUri(), HttpMethod.GET, httpEntity, ResidentDetailsVo.class);
+
+        return userDetailsVo.getBody();
     }
 
 

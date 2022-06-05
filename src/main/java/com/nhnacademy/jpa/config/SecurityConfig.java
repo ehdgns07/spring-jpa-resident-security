@@ -1,10 +1,11 @@
 package com.nhnacademy.jpa.config;
 
-import com.nhnacademy.jpa.LoginFailureHandler;
-import com.nhnacademy.jpa.LoginSuccessHandler;
+import com.nhnacademy.jpa.handler.LoginFailureHandler;
+import com.nhnacademy.jpa.handler.LoginSuccessHandler;
 import com.nhnacademy.jpa.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity(debug = true)
 @Configuration
@@ -20,16 +22,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll()
+        http.authorizeRequests()
+            .antMatchers("/resident").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+            .antMatchers("/relationship").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+            .anyRequest().permitAll()
             .and()
             .formLogin()
-            .usernameParameter("id")
-            .passwordParameter("pwd")
-            .loginPage("/resident/login")
-            .loginProcessingUrl("/login")
-            .successHandler(new LoginSuccessHandler())
-            .failureHandler(new LoginFailureHandler())
+                .usernameParameter("id")
+                .passwordParameter("pwd")
+                .loginPage("/resident/login")
+                .loginProcessingUrl("/login")
+                .successHandler(loginSuccessHandler(null))
+                .failureHandler(new LoginFailureHandler())
             .and()
+            // .oauth2Login()
+            // .successHandler(new LoginSuccessHandler(null))
             .logout()
             .and()
             .csrf()
@@ -65,4 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }
 
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler(RedisTemplate<String, String> redisTemplate) {
+        return new LoginSuccessHandler(redisTemplate);
+    }
 }

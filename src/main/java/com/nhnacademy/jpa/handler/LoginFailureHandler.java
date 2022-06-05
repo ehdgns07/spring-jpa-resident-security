@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa;
+package com.nhnacademy.jpa.handler;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

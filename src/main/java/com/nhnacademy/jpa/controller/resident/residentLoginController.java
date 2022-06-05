@@ -1,19 +1,17 @@
 package com.nhnacademy.jpa.controller.resident;
 
-import com.nhnacademy.jpa.domain.resident.MemberDto;
+import com.nhnacademy.jpa.domain.ResidentDetailsVo;
 import com.nhnacademy.jpa.service.resident.ResidentService;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.memory.UserAttributeEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,9 +33,14 @@ public class residentLoginController {
     }
 
     @GetMapping("/oauth2/code/github")
-    void getToken(@RequestParam String code, @RequestParam String state)
-        throws URISyntaxException, IOException {
-        residentService.getAccessToken(code, state);
+    String doLogin(@RequestParam String code, @RequestParam String state, HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+        throws URISyntaxException, IOException, ServletException {
+        ResidentDetailsVo residentDetailsVo = residentService.getOAuthEmail(code, state);
+        if(!residentService.checkEmail(residentDetailsVo, request, response, authentication)){
+            return "redirect:resident/login";
+        }
+
+        return null;
     }
 /*
     @PostMapping

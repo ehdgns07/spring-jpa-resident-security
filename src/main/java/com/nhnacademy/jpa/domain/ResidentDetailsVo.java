@@ -6,14 +6,17 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-import javax.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-public class UserDetailsVo implements UserDetails {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ResidentDetailsVo implements UserDetails {
 
 
     Integer residentSerialNo;

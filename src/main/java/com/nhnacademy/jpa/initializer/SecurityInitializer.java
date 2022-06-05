@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa;
+package com.nhnacademy.jpa.initializer;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -14,3 +14,11 @@ Host: localhost:8080
 
 DELETE /household/0
 Host: localhost:8080
+
+
+###
+
+GET /user?username=ehdgns07
+Content-Type: application/json
+Authorization: token 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
+Host: api.github.com

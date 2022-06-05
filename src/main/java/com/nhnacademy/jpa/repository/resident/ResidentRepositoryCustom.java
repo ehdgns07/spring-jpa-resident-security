@@ -1,12 +1,13 @@
 package com.nhnacademy.jpa.repository.resident;
 
-import com.nhnacademy.jpa.domain.UserDetailsVo;
-import com.nhnacademy.jpa.domain.resident.MemberDto;
+import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import java.util.List;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @NoRepositoryBean
 public interface ResidentRepositoryCustom {
 
-    UserDetailsVo findLoginInfo(String id);
+    ResidentDetailsVo findLoginInfo(String id);
+
+    List<String> findEmails();
 }

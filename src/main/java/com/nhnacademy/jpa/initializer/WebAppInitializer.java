@@ -1,4 +1,4 @@
-package com.nhnacademy.jpa;
+package com.nhnacademy.jpa.initializer;
 
 import com.nhnacademy.jpa.config.RootConfig;
 import com.nhnacademy.jpa.config.WebConfig;
