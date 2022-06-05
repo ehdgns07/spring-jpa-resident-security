@@ -1,6 +1,6 @@
 package com.nhnacademy.jpa.controller.resident;
 
-import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.ResidentVo;
 import com.nhnacademy.jpa.service.resident.ResidentService;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -35,12 +35,12 @@ public class residentLoginController {
     @GetMapping("/oauth2/code/github")
     String doLogin(@RequestParam String code, @RequestParam String state, HttpServletRequest request, HttpServletResponse response, Authentication authentication)
         throws URISyntaxException, IOException, ServletException {
-        ResidentDetailsVo residentDetailsVo = residentService.getOAuthEmail(code, state);
-        if(!residentService.checkEmail(residentDetailsVo, request, response, authentication)){
-            return "redirect:resident/login";
+        ResidentVo residentVo = residentService.getOAuthEmail(code, state);
+        if(!residentService.checkEmail(residentVo, request, response, authentication)){
+            return "/resident/login";
         }
 
-        return null;
+        return "redirect:/resident/index";
     }
 /*
     @PostMapping

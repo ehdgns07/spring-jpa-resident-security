@@ -1,7 +1,7 @@
 package com.nhnacademy.jpa.repository.resident;
 
 
-import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.ResidentVo;
 import com.nhnacademy.jpa.entity.resident.QResident;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import com.querydsl.core.types.Projections;
@@ -15,11 +15,11 @@ public class ResidentRepositoryImpl extends QuerydslRepositorySupport implements
     }
 
     @Override
-    public ResidentDetailsVo findLoginInfo(String id) {
+    public ResidentVo findLoginInfo(String id) {
         QResident resident = QResident.resident;
 
         return from(resident)
-            .select(Projections.bean(ResidentDetailsVo.class, resident.username, resident.password, resident.email ,resident.authority ))
+            .select(Projections.bean(ResidentVo.class, resident.username, resident.password, resident.email ,resident.authority ))
             .where(resident.username.eq(id))
             .fetchOne();
     }

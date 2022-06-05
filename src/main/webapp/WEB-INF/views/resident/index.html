@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title>Title</title>
     </head>
-        <div th:text="test"></div>
         <table>
             <tr th:each="resident : ${residents}">
                 <td th:text="${resident.getName()}"></td>

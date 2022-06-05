@@ -1,7 +1,7 @@
 package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
-import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.ResidentVo;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -24,9 +24,9 @@ public interface ResidentService {
 
     String tryToLoginAtGithub() throws URISyntaxException, NoSuchAlgorithmException;
 
-    ResidentDetailsVo getOAuthEmail(String code, String state) throws URISyntaxException, IOException;
+    ResidentVo getOAuthEmail(String code, String state) throws URISyntaxException, IOException;
 
-    boolean checkEmail(ResidentDetailsVo email, HttpServletRequest request,
+    boolean checkEmail(ResidentVo email, HttpServletRequest request,
                        HttpServletResponse response, Authentication authentication)
         throws ServletException, IOException;
 }

@@ -1,7 +1,7 @@
 package com.nhnacademy.jpa.service.resident;
 
 import com.nhnacademy.jpa.domain.ResidentRegisterDto;
-import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.ResidentVo;
 import com.nhnacademy.jpa.domain.resttemplate.TokenInformation;
 import com.nhnacademy.jpa.entity.resident.Resident;
 import com.nhnacademy.jpa.repository.resident.PagingResidentRepository;
@@ -110,7 +110,7 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public ResidentDetailsVo getOAuthEmail(String code, String state) throws URISyntaxException, IOException {
+    public ResidentVo getOAuthEmail(String code, String state) throws URISyntaxException, IOException {
 
         UriComponents uri = UriComponentsBuilder.newInstance()
                                                 .scheme("https")
@@ -126,42 +126,43 @@ public class ResidentServiceImpl implements ResidentService {
 
         TokenInformation tokeninformation = restTemplate.getForObject(uri.toUri(), TokenInformation.class);
 
-        ResidentDetailsVo residentDetailsVo = getOAuthEmail(tokeninformation);
+        ResidentVo residentVo = getOAuthEmail(tokeninformation);
 
-        return residentDetailsVo;
+        return residentVo;
     }
 
     @Override
-    public boolean checkEmail(ResidentDetailsVo residentDetailsVo, HttpServletRequest request,
+    public boolean checkEmail(ResidentVo residentVo, HttpServletRequest request,
                               HttpServletResponse response,
                               Authentication authentication) throws ServletException, IOException {
-        List<String> residentEmails = residentRepository.findEmails();
+        List<Resident> residents = residentRepository.findAll();
 
         //github에서 user 정보를 가져오는 것은 성공 했으나 email 부분을 null을 받아와서 임의로 지정.
-        residentDetailsVo.setEmail("ehdgns07@gmail.com");
+        residentVo.setEmail("ehdgns07@gmail.com");
 
-        for (String residentEmail : residentEmails) {
-            // if(Objects.equals(residentDetailsVo.getEmail(), residentEmail)){
-            //
-            //     List<GrantedAuthority> authorities = new ArrayList<>(residentDetailsVo.getAuthorities());
-            //
-            //     HttpSession session = request.getSession(false);
-            //
-            //     redisTemplate.opsForHash().put(session.getId(), "username", residentDetailsVo.getUsername());
-            //     redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
-            //
-            //     session.setAttribute("username", residentDetailsVo.getUsername());
-            //     session.setAttribute("authority", authorities.get(0).getAuthority());
-            //
-            //     log.debug("loginSuccess---------------------------------");
-            //     response.sendRedirect("/resident/index");
-            // }
+        for (Resident resident : residents) {
+            if(Objects.equals(residentVo.getEmail(), resident.getEmail())){
+
+                residentVo.setAuthority(resident.getAuthority());
+                List<GrantedAuthority> authorities = new ArrayList<>(residentVo.getAuthorities());
+
+                HttpSession session = request.getSession(false);
+
+                redisTemplate.opsForHash().put(session.getId(), "username", residentVo.getUsername());
+                redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
+
+                session.setAttribute("username", residentVo.getUsername());
+                session.setAttribute("authority", authorities.get(0).getAuthority());
+
+                log.debug("loginSuccess---------------------------------");
+                return true;
+            }
         }
 
         return false;
     }
 
-    private ResidentDetailsVo getOAuthEmail(TokenInformation tokeninformation) {
+    private ResidentVo getOAuthEmail(TokenInformation tokeninformation) {
         UriComponents uri;
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "token "+ tokeninformation.getAccess_token());
@@ -174,10 +175,10 @@ public class ResidentServiceImpl implements ResidentService {
             .queryParam("username","ehdgns07")
             .build();
 
-        ResponseEntity<ResidentDetailsVo>
-            userDetailsVo = restTemplate.exchange(uri.toUri(), HttpMethod.GET, httpEntity, ResidentDetailsVo.class);
+        ResponseEntity<ResidentVo>
+            residentVo = restTemplate.exchange(uri.toUri(), HttpMethod.GET, httpEntity, ResidentVo.class);
 
-        return userDetailsVo.getBody();
+        return residentVo.getBody();
     }
 
 

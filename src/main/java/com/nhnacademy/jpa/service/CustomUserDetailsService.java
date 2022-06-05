@@ -1,6 +1,6 @@
 package com.nhnacademy.jpa.service;
 
-import com.nhnacademy.jpa.domain.ResidentDetailsVo;
+import com.nhnacademy.jpa.domain.resttemplate.ResidentVo;
 import com.nhnacademy.jpa.repository.resident.ResidentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final ResidentRepository residentRepository;
+
     @Override
-    public ResidentDetailsVo loadUserByUsername(String username) throws UsernameNotFoundException {
+    public ResidentVo loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return residentRepository.findLoginInfo(username);
     }

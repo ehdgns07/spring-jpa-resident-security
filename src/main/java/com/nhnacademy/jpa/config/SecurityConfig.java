@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("pwd")
                 .loginPage("/resident/login")
                 .loginProcessingUrl("/login")
-                .successHandler(loginSuccessHandler(null))
+                .successHandler(new LoginSuccessHandler(null))
                 .failureHandler(new LoginFailureHandler())
             .and()
             // .oauth2Login()

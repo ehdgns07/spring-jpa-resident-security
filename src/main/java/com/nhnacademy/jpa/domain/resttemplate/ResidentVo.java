@@ -1,9 +1,5 @@
-package com.nhnacademy.jpa.domain;
+package com.nhnacademy.jpa.domain.resttemplate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import lombok.AllArgsConstructor;
@@ -16,28 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResidentDetailsVo implements UserDetails {
-
-
-    Integer residentSerialNo;
+public class ResidentVo implements UserDetails {
 
     String name;
-
-    String registrationNo;
-
-    String gender;
-
-    LocalDateTime birthDate;
-
-    String birthPlace;
-
-    String baseAddress;
-
-    LocalDateTime deathDate;
-
-    String deathPlaceCode;
-
-    String deathPlaceAddress;
 
     String username;
 

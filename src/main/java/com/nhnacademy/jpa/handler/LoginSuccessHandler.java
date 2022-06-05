@@ -28,18 +28,18 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         super.onAuthenticationSuccess(request, response, authentication);
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
-
-        HttpSession session = request.getSession(false);
-
-        redisTemplate.opsForHash().put(session.getId(), "username", userDetails.getUsername());
-        redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
-
-        session.setAttribute("username", userDetails.getUsername());
-        session.setAttribute("authority", authorities.get(0).getAuthority());
+        // UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        // List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
+        //
+        // HttpSession session = request.getSession(false);
+        //
+        // redisTemplate.opsForHash().put(session.getId(), "username", userDetails.getUsername());
+        // redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
+        //
+        // session.setAttribute("username", userDetails.getUsername());
+        // session.setAttribute("authority", authorities.get(0).getAuthority());
 
         log.debug("loginSuccess---------------------------------");
-        // response.sendRedirect("/resident/index");
+        response.sendRedirect("/resident/index");
     }
 }
